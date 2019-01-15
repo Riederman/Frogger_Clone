@@ -7,6 +7,7 @@ public class LevelMB: MonoBehaviour
     [SerializeField] private int height;
     [SerializeField] private GameObject nodePrefab;
     [SerializeField] private GameObject playerPrefab;
+    [SerializeField] private GameObject hazardPrefab;
 
     private NodeMB[,] nodes;
 
@@ -19,12 +20,19 @@ public class LevelMB: MonoBehaviour
 
     private void GenerateLevel()
     {
+        Debug.Log("Generate Level");
+
         // Create an array of nodes
         GenerateNodes();
+
         // Set the edges of each node
         GenerateEdges();
-        // Adds the player to the level
+
+        // Add the player to the level
         GeneratePlayer();
+
+        // Add hazards to the level
+        GenerateHazards();
     }
 
     private void GenerateNodes()
@@ -40,8 +48,7 @@ public class LevelMB: MonoBehaviour
             for (int y = 0; y < height; y++)
             {
                 // Instantiate node prefab
-                NodeMB node = Instantiate(nodePrefab).GetComponent<NodeMB>();
-                Assert.IsTrue(node != null);
+                NodeMB node = CreateNode(NodeType.Floor);
 
                 // Set node position
                 node.transform.parent = transform;
@@ -52,6 +59,23 @@ public class LevelMB: MonoBehaviour
                 nodes[x, y] = node;
             }
         }
+    }
+
+    private NodeMB CreateNode(NodeType type)
+    {
+        // Instantiate node prefab
+        NodeMB node = Instantiate(nodePrefab).GetComponent<NodeMB>();
+        Assert.IsTrue(node != null);
+
+        // Set node effects
+        switch (type)
+        {
+            case NodeType.Ice:
+                node.effect = new IceEffect();
+                break;
+        }
+
+        return node;
     }
 
     private void GenerateEdges()
@@ -95,20 +119,31 @@ public class LevelMB: MonoBehaviour
 
     private void GeneratePlayer()
     {
-        // Adds the player to the level
+        // Add the player to the level
         PlayerMB player = Instantiate(playerPrefab).GetComponent<PlayerMB>();
         Assert.IsTrue(player != null);
 
-        // Initializes the player
+        // Initialize the player
         NodeMB startingNode = nodes[0, 0];
         player.Initialize(startingNode);
+    }
+
+    private void GenerateHazards()
+    {
+        //// Add hazards to the level
+        //HazardMB hazard = Instantiate(hazardPrefab).GetComponent<HazardMB>();
+        //Assert.IsTrue(hazard != null);
+
+        //// Initialize the hazards
+        //NodeMB startingNode = nodes[Random.Range(1, width - 1), Random.Range(1, height - 1)];
+        //hazard.Initialize(startingNode);
     }
 
     #endregion
 
     public NodeMB GetNode(int x, int y)
     {
-        // Returns a node by index
+        // Return a node by index
         Assert.IsTrue(x >= 0 && x < width);
         Assert.IsTrue(y >= 0 && y < height);
         return nodes[x, y];

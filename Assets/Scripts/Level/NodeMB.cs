@@ -6,6 +6,7 @@ public class NodeMB : MonoBehaviour
     public Edge edgeRight;
     public Edge edgeDown;
     public Edge edgeUp;
+    public IEffect effect;
 
     public NodeMB GetNextNode(DirectionType direction)
     {

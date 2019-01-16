@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Assertions;
 
 [RequireComponent(typeof(SpriteRenderer))]
@@ -9,18 +8,18 @@ public class NodeMB : MonoBehaviour
     public Edge edgeRight;
     public Edge edgeDown;
     public Edge edgeUp;
+    public IEffect effect;
+    public NodeType type;
 
     private SpriteRenderer spriteRend;
 
-    private EffectMessage message = new EffectMessage();
-    private NoEffect noEffect = new NoEffect();
-    private StallEffect stallEffect = new StallEffect();
-    private SlideEffect slideEffect = new SlideEffect();
-    private FallEffect fallEffect = new FallEffect();
-    private DeathEffect deathEffect = new DeathEffect();
+    public Sprite NodeSprite
+    {
+        get { return spriteRend.sprite; }
+        set { spriteRend.sprite = value; }
+    }
 
-    public IEffect Effect { get; private set; }
-    public NodeType Type { get; private set; }
+    private EffectMessage message = new EffectMessage();
 
     private void Awake()
     {
@@ -32,8 +31,9 @@ public class NodeMB : MonoBehaviour
     public void OnEnterNode(ActorMB actor)
     {
         // Called when an actor enters
+        Assert.IsTrue(effect != null);
         message.target = actor;
-        Effect.ApplyEffect(message);
+        effect.ApplyEffect(message);
     }
 
     public NodeMB GetNextNode(DirectionType direction)
@@ -57,36 +57,5 @@ public class NodeMB : MonoBehaviour
         }
 
         return null;
-    }
-
-    public void SetType(NodeType type)
-    {
-        // Set variables
-        Type = type;
-        Effect = GetEffect(type);
-    }
-
-    public void SetSprite(Sprite sprite)
-    {
-        // Set node view
-        spriteRend.sprite = sprite;
-    }
-
-    private IEffect GetEffect(NodeType type)
-    {
-        // Return an effect based on type
-        switch (type)
-        {
-            case NodeType.Grass:
-                return stallEffect;
-            case NodeType.Ice:
-                return slideEffect;
-            case NodeType.Hole:
-                return fallEffect;
-            case NodeType.Lava:
-                return deathEffect;
-        }
-
-        return noEffect;
     }
 }

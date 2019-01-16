@@ -1,34 +1,21 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Assertions;
 
 public class LevelMB: MonoBehaviour
 {
+    public int index;
+
     [SerializeField] private int width;
     [SerializeField] private int height;
     [SerializeField] private GameObject nodePrefab;
     [SerializeField] private GameObject playerPrefab;
     [SerializeField] private GameObject hazardPrefab;
-    [SerializeField] private NodeSpritePair[] nodeSprites;
 
     private NodeMB[,] nodes;
 
-    private Dictionary<NodeType, Sprite> spriteDict = new Dictionary<NodeType, Sprite>();
-
-    private void Awake()
-    {
-        GenerateLevel();
-
-        // Populate sprite dictionary
-        foreach (NodeSpritePair pair in nodeSprites)
-        {
-            spriteDict.Add(pair.type, pair.sprite);
-        }
-    }
-
     #region Generation
 
-    private void GenerateLevel()
+    public void GenerateLevel()
     {
         Debug.Log("Generate Level");
 
@@ -78,8 +65,9 @@ public class LevelMB: MonoBehaviour
         Assert.IsTrue(node != null);
 
         // Set the node variables
-        node.SetType(type);
-        node.SetSprite(GetNodeSprite(type));
+        node.type = type;
+        node.effect = NodeEffects.GetEffect(type);
+        node.NodeSprite = SpriteManagerMB.GetNodeSprite(type);
 
         return node;
     }
@@ -153,11 +141,5 @@ public class LevelMB: MonoBehaviour
         Assert.IsTrue(x >= 0 && x < width);
         Assert.IsTrue(y >= 0 && y < height);
         return nodes[x, y];
-    }
-
-    private Sprite GetNodeSprite(NodeType type)
-    {
-        Assert.IsTrue(spriteDict.ContainsKey(type));
-        return spriteDict[type];
     }
 }

@@ -1,8 +1,8 @@
-﻿public class FallEffect : IEffect
+﻿public class ExitEffect : IEffect
 {
     public void ApplyEffect(EffectMessage message)
     {
         // TODO:
-        // Load back previous level
+        // Load next level
     }
 }

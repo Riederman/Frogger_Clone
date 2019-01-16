@@ -58,3 +58,14 @@ MonoBehaviour:
     type: 2}
   hazardPrefab: {fileID: 1725968304116816, guid: 56b892bf2774caa46808be7cf7b1ca11,
     type: 2}
+  nodeSprites:
+  - type: 0
+    sprite: {fileID: 21300000, guid: 02db1ff2ba25dc742bbaecb9729c2fbe, type: 3}
+  - type: 1
+    sprite: {fileID: 21300000, guid: 49879aef759f32d47a102a9ce0bc63ae, type: 3}
+  - type: 2
+    sprite: {fileID: 21300000, guid: 1c0a85945185f0e47816442bbfce98e3, type: 3}
+  - type: 3
+    sprite: {fileID: 21300000, guid: fd086bd2d1387034bb69ba1642d3cb5c, type: 3}
+  - type: 4
+    sprite: {fileID: 21300000, guid: a1ec8ab6dd952394189ff7b0de68bf99, type: 3}

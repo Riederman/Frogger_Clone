@@ -5,9 +5,6 @@ using UnityEngine.Assertions;
 [RequireComponent(typeof(SpriteRenderer))]
 public class NodeMB : MonoBehaviour
 {
-    [SerializeField]
-    private NodeSpritePair[] nodeSprites;
-
     public Edge edgeLeft;
     public Edge edgeRight;
     public Edge edgeDown;
@@ -22,8 +19,6 @@ public class NodeMB : MonoBehaviour
     private FallEffect fallEffect = new FallEffect();
     private DeathEffect deathEffect = new DeathEffect();
 
-    private Dictionary<NodeType, Sprite> spriteDict = new Dictionary<NodeType, Sprite>();
-
     public IEffect Effect { get; private set; }
     public NodeType Type { get; private set; }
 
@@ -32,16 +27,11 @@ public class NodeMB : MonoBehaviour
         // Get references
         spriteRend = GetComponent<SpriteRenderer>();
         Assert.IsTrue(spriteRend != null);
-
-        // Populate sprite dictionary
-        foreach (NodeSpritePair pair in nodeSprites)
-        {
-            spriteDict.Add(pair.type, pair.sprite);
-        }
     }
 
     public void OnEnterNode(ActorMB actor)
     {
+        // Called when an actor enters
         message.target = actor;
         Effect.ApplyEffect(message);
     }
@@ -74,13 +64,17 @@ public class NodeMB : MonoBehaviour
         // Set variables
         Type = type;
         Effect = GetEffect(type);
+    }
 
-        // Set view sprite
-        spriteRend.sprite = GetSprite(type);
+    public void SetSprite(Sprite sprite)
+    {
+        // Set node view
+        spriteRend.sprite = sprite;
     }
 
     private IEffect GetEffect(NodeType type)
     {
+        // Return an effect based on type
         switch (type)
         {
             case NodeType.Grass:
@@ -94,11 +88,5 @@ public class NodeMB : MonoBehaviour
         }
 
         return noEffect;
-    }
-
-    private Sprite GetSprite(NodeType type)
-    {
-        Assert.IsTrue(spriteDict.ContainsKey(type));
-        return spriteDict[type];
     }
 }

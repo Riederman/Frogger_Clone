@@ -5,6 +5,9 @@ public abstract class ActorMB : MonoBehaviour
 {
     protected NodeMB currentNode;
 
+    private int numTurnsCounter;
+
+    public int NumTurnsToMove { get; set; }
     public DirectionType CurrentDirection { get; private set; }
 
     public void Initialize(NodeMB currentNode)
@@ -13,7 +16,8 @@ public abstract class ActorMB : MonoBehaviour
         this.currentNode = currentNode;
         Assert.IsTrue(currentNode != null);
 
-        // Set the starting position
+        // Initialize variables
+        NumTurnsToMove = 1;
         transform.position = currentNode.transform.position;
 
         Debug.Log("Initialize " + name);
@@ -24,15 +28,22 @@ public abstract class ActorMB : MonoBehaviour
         // Get the node to move to
         NodeMB targetNode = currentNode.GetNextNode(direction);
 
-        // Set the new position
-        if (targetNode != null)
-        {
-            currentNode = targetNode;
-            currentNode.OnEnterNode(this);
-            transform.position = targetNode.transform.position;
-        }
+        // Tick up counter
+        numTurnsCounter++;
 
-        // Set facing direction
-        CurrentDirection = direction;
+        if (numTurnsCounter == NumTurnsToMove)
+        {
+            // Set the new position
+            if (targetNode != null)
+            {
+                numTurnsCounter = 0;
+                currentNode = targetNode;
+                currentNode.OnEnterNode(this);
+                transform.position = targetNode.transform.position;
+            }
+
+            // Set facing direction
+            CurrentDirection = direction;
+        }
     }
 }

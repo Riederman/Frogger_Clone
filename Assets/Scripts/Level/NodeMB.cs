@@ -16,6 +16,7 @@ public class NodeMB : MonoBehaviour
     private SpriteRenderer spriteRend;
 
     private EffectMessage message = new EffectMessage();
+    private NoEffect noEffect = new NoEffect();
     private StallEffect stallEffect = new StallEffect();
     private SlideEffect slideEffect = new SlideEffect();
     private FallEffect fallEffect = new FallEffect();
@@ -92,7 +93,7 @@ public class NodeMB : MonoBehaviour
                 return deathEffect;
         }
 
-        return null;
+        return noEffect;
     }
 
     private Sprite GetSprite(NodeType type)

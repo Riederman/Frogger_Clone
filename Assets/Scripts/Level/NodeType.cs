@@ -1,5 +1,8 @@
 ﻿public enum NodeType
 {
     Floor,
-    Ice
+    Grass,
+    Ice,
+    Hole,
+    Lava
 }

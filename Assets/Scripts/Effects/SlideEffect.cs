@@ -1,4 +1,4 @@
-﻿public class IceEffect : IEffect
+﻿public class SlideEffect : IEffect
 {
     public void ApplyEffect(EffectMessage message)
     {

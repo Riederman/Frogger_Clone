@@ -67,13 +67,8 @@ public class LevelMB: MonoBehaviour
         NodeMB node = Instantiate(nodePrefab).GetComponent<NodeMB>();
         Assert.IsTrue(node != null);
 
-        // Set node effects
-        switch (type)
-        {
-            case NodeType.Ice:
-                node.effect = new IceEffect();
-                break;
-        }
+        // Set the node type
+        node.SetType(type);
 
         return node;
     }

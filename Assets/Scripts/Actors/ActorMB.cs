@@ -19,7 +19,7 @@ public abstract class ActorMB : MonoBehaviour
         Debug.Log("Initialize " + name);
     }
 
-    public void Move(DirectionType direction)
+    public virtual void Move(DirectionType direction)
     {
         // Get the node to move to
         NodeMB targetNode = currentNode.GetNextNode(direction);
@@ -28,6 +28,7 @@ public abstract class ActorMB : MonoBehaviour
         if (targetNode != null)
         {
             currentNode = targetNode;
+            currentNode.OnEnterNode(this);
             transform.position = targetNode.transform.position;
         }
 

@@ -2,7 +2,6 @@
 {
     public void ApplyEffect(EffectMessage message)
     {
-        // TODO:
-        // Load back previous level
+        LevelManagerMB.Instance.ProceedToNextLevel();
     }
 }

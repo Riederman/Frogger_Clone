@@ -28,22 +28,21 @@ public abstract class ActorMB : MonoBehaviour
         // Get the node to move to
         NodeMB targetNode = currentNode.GetNextNode(direction);
 
-        // Tick up counter
-        numTurnsCounter++;
-
-        if (numTurnsCounter == NumTurnsToMove)
+        if (targetNode != null)
         {
-            // Set the new position
-            if (targetNode != null)
+            // Tick up counter
+            numTurnsCounter++;
+
+            if (numTurnsCounter == NumTurnsToMove)
             {
                 numTurnsCounter = 0;
                 currentNode = targetNode;
                 currentNode.OnEnterNode(this);
                 transform.position = targetNode.transform.position;
             }
-
-            // Set facing direction
-            CurrentDirection = direction;
         }
+
+        // Set facing direction
+        CurrentDirection = direction;
     }
 }

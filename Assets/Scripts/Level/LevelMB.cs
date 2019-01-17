@@ -8,14 +8,13 @@ public class LevelMB: MonoBehaviour
     [SerializeField] private int width;
     [SerializeField] private int height;
     [SerializeField] private GameObject nodePrefab;
-    [SerializeField] private GameObject playerPrefab;
     [SerializeField] private GameObject hazardPrefab;
 
     private NodeMB[,] nodes;
 
     #region Generation
 
-    public void GenerateLevel()
+    public void Generate()
     {
         Debug.Log("Generate Level");
 
@@ -24,9 +23,6 @@ public class LevelMB: MonoBehaviour
 
         // Set the edges of each node
         GenerateEdges();
-
-        // Add the player to the level
-        GeneratePlayer();
 
         // Add hazards to the level
         GenerateHazards();
@@ -111,13 +107,10 @@ public class LevelMB: MonoBehaviour
         }
     }
 
-    private void GeneratePlayer()
+    public void AddPlayer(PlayerMB player)
     {
-        // Add the player to the level
-        PlayerMB player = Instantiate(playerPrefab).GetComponent<PlayerMB>();
-        Assert.IsTrue(player != null);
-
         // Initialize the player
+        Assert.IsTrue(player != null);
         NodeMB startingNode = nodes[0, 0];
         player.Initialize(startingNode);
     }

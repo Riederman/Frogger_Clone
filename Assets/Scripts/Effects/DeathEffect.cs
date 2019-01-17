@@ -2,6 +2,6 @@
 {
     public void ApplyEffect(EffectMessage message)
     {
-        message.target.gameObject.SetActive(false);
+        LevelManagerMB.Instance.RepeatCurrentLevel();
     }
 }

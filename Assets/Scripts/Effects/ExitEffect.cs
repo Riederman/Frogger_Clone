@@ -2,6 +2,6 @@
 {
     public void ApplyEffect(EffectMessage message)
     {
-        LevelManagerMB.Instance.ReturnToPrevLevel();
+        LevelManagerMB.Instance.ProceedToNextLevel();
     }
 }

@@ -4,6 +4,8 @@ using UnityEngine.Assertions;
 [RequireComponent(typeof(SpriteRenderer))]
 public class NodeMB : MonoBehaviour
 {
+    public int x;
+    public int y;
     public Edge edgeLeft;
     public Edge edgeRight;
     public Edge edgeDown;

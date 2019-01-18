@@ -42,21 +42,34 @@ public class LevelManagerMB : Singleton<LevelManagerMB>
         level.Generate();
         levels.Add(level);
 
+        // Set enter position
+        if (currentLevel != null)
+        {
+            level.enterXY = currentLevel.exitXY;
+        }
+
         return level;
     }
 
     public void ProceedToNextLevel()
     {
-        if (currentLevel != null && currentLevel.index + 1 <= GameConstants.MAX_NUM_LEVELS)
+        if (currentLevel.index + 1 <= GameConstants.MAX_NUM_LEVELS)
         {
             // Deactivate the current level
             currentLevel.gameObject.SetActive(false);
 
             // Generate the next level
-            currentLevel = GenerateLevel();
+            currentLevel = currentLevel.index + 1 < levels.Count ? levels[currentLevel.index + 1] : GenerateLevel();
+
+            // Activate the next level
+            currentLevel.gameObject.SetActive(true);
             currentLevel.AddPlayer(player);
 
             RefreshUI();
+        }
+        else
+        {
+            GameManagerMB.Instance.ProceedToWinScreen();
         }
     }
 

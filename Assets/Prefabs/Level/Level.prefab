@@ -51,23 +51,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78cdbcf363fbd5d469021f943fa250b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  width: 14
-  height: 14
+  index: 0
+  enterXY: {x: -1, y: -1}
+  exitXY: {x: -1, y: -1}
+  width: 15
+  height: 15
   nodePrefab: {fileID: 1391018890589246, guid: bd10013a6e9cbaf43a4b35aae0031810, type: 2}
-  playerPrefab: {fileID: 1750907622525760, guid: 098e1a0c261813540938b9632442e272,
-    type: 2}
   hazardPrefab: {fileID: 1725968304116816, guid: 56b892bf2774caa46808be7cf7b1ca11,
     type: 2}
-  nodeSprites:
-  - type: 0
-    sprite: {fileID: 21300000, guid: 02db1ff2ba25dc742bbaecb9729c2fbe, type: 3}
-  - type: 1
-    sprite: {fileID: 21300000, guid: 732f8adbce576334eb4741ad5d6a1d1e, type: 3}
-  - type: 2
-    sprite: {fileID: 21300000, guid: 836cc64ece41432458cef8fcbd81f57e, type: 3}
-  - type: 3
-    sprite: {fileID: 21300000, guid: 49879aef759f32d47a102a9ce0bc63ae, type: 3}
-  - type: 4
-    sprite: {fileID: 21300000, guid: 1c0a85945185f0e47816442bbfce98e3, type: 3}
-  - type: 5
-    sprite: {fileID: 21300000, guid: a1ec8ab6dd952394189ff7b0de68bf99, type: 3}
